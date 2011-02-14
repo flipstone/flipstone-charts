@@ -15,6 +15,7 @@ module Flipstone
               flipstone_charts/vendor/EnhanceJS/enhance
               flipstone_charts/vendor/charting/js/excanvas
               flipstone_charts/vendor/charting/js/visualize.jQuery
+              flipstone_charts/gem
             )
           )
         end

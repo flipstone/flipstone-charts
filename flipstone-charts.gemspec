@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/flipstone/flipstone-chrats"
   s.summary     = %q{Resources for charting used on flipstone apps}
   s.description = %q{}
-  s.add_dependency 'rails', '~> 3.0'
+  s.add_dependency 'rails', '~> 3.0', '>= 3.0.4'
 
   s.rubyforge_project = "flipstone-charts"
 

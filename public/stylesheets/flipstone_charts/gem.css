@@ -16,3 +16,7 @@ body {
   font-size: 62.5%;
   margin: 0;
 }
+
+.flipstone-chart-clear {
+  clear: both;
+}

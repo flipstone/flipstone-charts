@@ -1,4 +1,4 @@
-.report
+.report{'data-chart-type' => chart_type || 'bar'}
   %table
     %caption= report.title
     %thead
@@ -7,8 +7,8 @@
         - report.x_axis_labels.each do |l|
           %th= l
     %tbody
-      %tr
-        - report.data.each_with_index do |row, i|
+      - report.data.each_with_index do |row, i|
+        %tr
           %th= report.y_axis_labels[i]
           - row.each do |cell|
             %td= cell
