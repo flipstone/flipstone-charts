@@ -1,0 +1,18 @@
+body {
+  font-size: inherit;
+}
+
+.report table {
+  border-collapse: collapse;
+  font-size: 62.5%;
+}
+
+.report td, .report th {
+  border: 1px solid black;
+  padding: 0.25em;
+}
+
+.visualize {
+  font-size: 62.5%;
+  margin: 0;
+}

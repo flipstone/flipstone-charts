@@ -1,0 +1,15 @@
+.report
+  %table
+    %caption= report.title
+    %thead
+      %tr
+        %td
+        - report.x_axis_labels.each do |l|
+          %th= l
+    %tbody
+      %tr
+        - report.data.each_with_index do |row, i|
+          %th= report.y_axis_labels[i]
+          - row.each do |cell|
+            %td= cell
+
