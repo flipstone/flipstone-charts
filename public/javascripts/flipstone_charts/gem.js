@@ -17,7 +17,16 @@ $.widget('ui.report', {
   }
 });
 
-$(function() {
-  $('.report').report();
+$.widget('ui.flipstoneChartFor', {
+  _init: function() {
+    var chart = $(this.element);
+    var table = $(chart.attr('data-source'));
+    var type = chart.attr('data-chart-type');
+    table.visualize({type: type}).appendTo(chart).trigger('visualizeRefresh');
+    chart.append('<div class="flipstone-chart-clear">');
+  }
 });
+
+$(function() { $('.report').report(); });
+$(function() { $('.flipstone-chart-for').flipstoneChartFor(); });
 

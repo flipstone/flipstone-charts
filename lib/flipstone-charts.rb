@@ -3,20 +3,34 @@ require 'rails'
 module Flipstone
   module Charts
     class Engine < ::Rails::Engine
+      JAVASCRIPTS = %w(
+        flipstone_charts/vendor/EnhanceJS/enhance
+        flipstone_charts/vendor/charting/js/excanvas
+        flipstone_charts/vendor/charting/js/visualize.jQuery
+        flipstone_charts/gem
+      )
+
+      STYLESHEETS = %w(
+        flipstone_charts/vendor/charting/css/visualize
+        flipstone_charts/vendor/charting/css/visualize-dark
+        flipstone_charts/gem
+      )
+
       initializer "static assets" do |app|
-        system("ln -nfs #{root}/public/stylesheets/* #{app.root}/public/stylesheets/")
-        system("ln -nfs #{root}/public/javascripts/* #{app.root}/public/javascripts/")
+        app_css = File.join app.root, 'public', 'stylesheets', 'flipstone_charts'
+        app_js = File.join app.root, 'public', 'javascripts', 'flipstone_charts'
+
+        gem_css = File.join root, 'public', 'stylesheets', 'flipstone_charts'
+        gem_js = File.join root, 'public', 'javascripts', 'flipstone_charts'
+
+        system "rm -rf #{app_css}; cp -r #{gem_css} #{app_css}"
+        system "rm -rf #{app_js}; cp -r #{gem_js} #{app_js}"
       end
 
       initializer "expansions" do
         ActiveSupport.on_load(:action_view) do
           ActionView::Helpers::AssetTagHelper.register_javascript_expansion(
-            :defaults => %w(
-              flipstone_charts/vendor/EnhanceJS/enhance
-              flipstone_charts/vendor/charting/js/excanvas
-              flipstone_charts/vendor/charting/js/visualize.jQuery
-              flipstone_charts/gem
-            )
+            :defaults => JAVASCRIPTS, :flipstone_charts => JAVASCRIPTS
           )
         end
       end
@@ -25,11 +39,7 @@ module Flipstone
       config.before_configuration do
         ActiveSupport.on_load(:action_view) do
           ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion(
-            :defaults => %w(
-              flipstone_charts/vendor/charting/css/visualize
-              flipstone_charts/vendor/charting/css/visualize-dark
-              flipstone_charts/gem
-            )
+            :defaults => STYLESHEETS, :flipstone_charts => STYLESHEETS
           )
         end
       end
