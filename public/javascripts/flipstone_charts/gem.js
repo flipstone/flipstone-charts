@@ -11,22 +11,40 @@ $.widget('ui.report', {
     tabs.find('#data').append(table);
     $(this.element).html(tabs);
     tabs.tabs();
-    var type = $(this.element).attr('data-chart-type');
-    table.visualize({type: type}).appendTo(tabs.find('#chart')).trigger('visualizeRefresh');
+    var chartTable = table.clone();
+    chartTable.appendTo(tabs.find('#chart'));
+
+    flipstoneCharts.generateChartFor(chartTable, $(this.element));
     tabs.find('#chart').append('<div class="flipstone-chart-clear">');
   }
 });
 
-$.widget('ui.flipstoneChartFor', {
-  _init: function() {
-    var chart = $(this.element);
-    var table = $(chart.attr('data-source'));
-    var type = chart.attr('data-chart-type');
-    table.visualize({type: type}).appendTo(chart).trigger('visualizeRefresh');
-    chart.append('<div class="flipstone-chart-clear">');
+var flipstoneCharts = {
+  init: function() {
+    $('.report').report();
+    flipstoneCharts.initStandaloneCharts();
+  },
+
+  initStandaloneCharts: function() {
+    $('.flipstone-chart').each(function() {
+      var table = $(this);
+      flipstoneCharts.generateChartFor(table, table);
+    });
+  },
+
+  generateChartFor: function(table, optionsElement, gvSettings) {
+    var type = optionsElement.attr('data-chart-type');
+    var width = optionsElement.attr('data-chart-width');
+    var height = optionsElement.attr('data-chart-height');
+
+    table.gvChart({
+      chartType: type,
+      gvSettings: {
+        width: width ? width : 720,
+        height: height ? height : 300,
+      }
+    });
   }
-});
+}
 
-$(function() { $('.report').report(); });
-$(function() { $('.flipstone-chart-for').flipstoneChartFor(); });
-
+$(flipstoneCharts.init);

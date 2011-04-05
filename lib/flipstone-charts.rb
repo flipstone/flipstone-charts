@@ -4,15 +4,12 @@ module Flipstone
   module Charts
     class Engine < ::Rails::Engine
       JAVASCRIPTS = %w(
-        flipstone_charts/vendor/EnhanceJS/enhance
-        flipstone_charts/vendor/charting/js/excanvas
-        flipstone_charts/vendor/charting/js/visualize.jQuery
+        http://www.google.com/jsapi
+        flipstone_charts/jQuery.gvChart-1.0.1.min.js
         flipstone_charts/gem
       )
 
       STYLESHEETS = %w(
-        flipstone_charts/vendor/charting/css/visualize
-        flipstone_charts/vendor/charting/css/visualize-dark
         flipstone_charts/gem
       )
 
