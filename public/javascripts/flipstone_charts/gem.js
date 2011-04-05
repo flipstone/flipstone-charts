@@ -34,16 +34,40 @@ var flipstoneCharts = {
 
   generateChartFor: function(table, optionsElement, gvSettings) {
     var type = optionsElement.attr('data-chart-type');
-    var width = optionsElement.attr('data-chart-width');
-    var height = optionsElement.attr('data-chart-height');
 
-    table.gvChart({
+    options = {
       chartType: type,
-      gvSettings: {
-        width: width ? width : 720,
-        height: height ? height : 300
+      gvSettings: { width: 720, height:  300 }
+    }
+
+    $.each(table[0].attributes, function() {
+      match = /^data-chart-(.+)$/.exec(this.name)
+      window.console.log(this.name);
+      if (match && this.name != 'data-chart-type') {
+        var path = match[1].split('.');
+
+        for (var i = 0; i < path.length; i++) {
+          path[i] = path[i].replace(/_[a-z]/g, function(m) {
+            return m[1].toUpperCase();
+          });
+        }
+
+        var target = options.gvSettings;
+
+        for(var i = 0; i < path.length - 1; i++) {
+          if (!target[path[i]]) {
+            target[path[i]] = {};
+          }
+
+          target = target[path[i]];
+        }
+
+        target[path.pop()] = this.value
       }
     });
+
+    window.console.log(options);
+    table.gvChart(options);
   }
 }
 
