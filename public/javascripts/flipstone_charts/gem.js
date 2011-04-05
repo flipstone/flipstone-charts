@@ -41,7 +41,7 @@ var flipstoneCharts = {
       chartType: type,
       gvSettings: {
         width: width ? width : 720,
-        height: height ? height : 300,
+        height: height ? height : 300
       }
     });
   }
