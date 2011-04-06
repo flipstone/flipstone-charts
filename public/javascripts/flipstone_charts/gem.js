@@ -35,10 +35,7 @@ var flipstoneCharts = {
   generateChartFor: function(table, optionsElement, gvSettings) {
     var type = optionsElement.attr('data-chart-type');
 
-    options = {
-      chartType: type,
-      gvSettings: { width: 720, height:  300 }
-    }
+    options = { chartType: type, gvSettings: { } }
 
     $.each(table[0].attributes, function() {
       match = /^data-chart-(.+)$/.exec(this.name)
