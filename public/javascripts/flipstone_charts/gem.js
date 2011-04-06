@@ -42,7 +42,6 @@ var flipstoneCharts = {
 
     $.each(table[0].attributes, function() {
       match = /^data-chart-(.+)$/.exec(this.name)
-      window.console.log(this.name);
       if (match && this.name != 'data-chart-type') {
         var path = match[1].split('.');
 
@@ -66,7 +65,6 @@ var flipstoneCharts = {
       }
     });
 
-    window.console.log(options);
     table.gvChart(options);
   }
 }
