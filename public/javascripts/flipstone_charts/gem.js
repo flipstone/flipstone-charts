@@ -44,7 +44,7 @@ var flipstoneCharts = {
 
         for (var i = 0; i < path.length; i++) {
           path[i] = path[i].replace(/_[a-z]/g, function(m) {
-            return m[1].toUpperCase();
+            return m.charAt(1).toUpperCase();
           });
         }
 
