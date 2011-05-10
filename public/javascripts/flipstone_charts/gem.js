@@ -63,7 +63,9 @@ var flipstoneCharts = {
 
     table.find('tbody tr').each(function(columnIndex) {
       $(this).find('td').each(function(rowIndex) {
-        data.setCell(rowIndex, columnIndex + 1, parseFloat($(this).text()));
+        var formattedValue = $(this).text();
+        var value = parseFloat(formattedValue.replace(/[^-0-9.]/g, ''));
+        data.setCell(rowIndex, columnIndex + 1, value, formattedValue);
       });
     });
 
