@@ -58,7 +58,15 @@ var flipstoneCharts = {
           target = target[path[i]];
         }
 
-        target[path.pop()] = this.value
+        var arrayMatch = /^\[([^\]]*)\]$/.exec(this.value)
+
+        if (arrayMatch) {
+          var value = arrayMatch[1].split(',')
+        } else {
+          var value = this.value;
+        }
+
+        target[path.pop()] = value;
       }
     });
 
