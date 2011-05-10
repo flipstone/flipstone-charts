@@ -20,6 +20,10 @@ $.widget('ui.report', {
 });
 
 var flipstoneCharts = {
+  initChartApi: function() {
+    google.load('visualization', '1', {packages: ['corechart']});
+  },
+
   init: function() {
     $('.report').report();
     flipstoneCharts.initStandaloneCharts();
@@ -32,10 +36,50 @@ var flipstoneCharts = {
     });
   },
 
-  generateChartFor: function(table, optionsElement, gvSettings) {
+  generateChartFor: function(table, optionsElement) {
+    var options = flipstoneCharts.optionsForElement(table, optionsElement);
+    table.hide();
+    flipstoneCharts.drawChart(table, options);
+  },
+
+  drawChart: function(table, options) {
+    var chartElement = $('<div>');
+    chartElement.insertBefore(table);
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('string','X labels');
+
+    table.find('tbody tr').each(function() {
+      data.addColumn('number', $(this).find('th').text());
+    });
+
+    data.addRows(table.find('thead th').size() - 1);
+
+    table.find('thead th').each(function(rowIndex) {
+      if (rowIndex > 0) {
+        data.setCell(rowIndex-1, 0, $(this).text());
+      }
+    });
+
+    table.find('tbody tr').each(function(columnIndex) {
+      $(this).find('td').each(function(rowIndex) {
+        data.setCell(rowIndex, columnIndex + 1, parseFloat($(this).text()));
+      });
+    });
+
+    var chart = new google.visualization[options.chartType](chartElement[0]);
+    chart.draw(data, options.gvSettings);
+  },
+
+  optionsForElement: function(table, optionsElement) {
     var type = optionsElement.attr('data-chart-type');
 
-    options = { chartType: type, gvSettings: { } }
+    var options = {
+      chartType: type,
+      gvSettings: {
+        title: table.find('caption').text()
+      }
+    };
 
     $.each(table[0].attributes, function() {
       match = /^data-chart-(.+)$/.exec(this.name)
@@ -70,7 +114,7 @@ var flipstoneCharts = {
       }
     });
 
-    table.gvChart(options);
+    return options;
   }
 }
 

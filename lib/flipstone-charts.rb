@@ -5,7 +5,6 @@ module Flipstone
     class Engine < ::Rails::Engine
       JAVASCRIPTS = %w(
         http://www.google.com/jsapi
-        flipstone_charts/jQuery.gvChart-1.0.1.min.js
         flipstone_charts/gem
       )
 
