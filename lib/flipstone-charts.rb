@@ -19,8 +19,8 @@ module Flipstone
         gem_css = File.join root, 'public', 'stylesheets', 'flipstone_charts'
         gem_js = File.join root, 'public', 'javascripts', 'flipstone_charts'
 
-        system "rm -rf #{app_css}; cp -r #{gem_css} #{app_css}"
-        system "rm -rf #{app_js}; cp -r #{gem_js} #{app_js}"
+        system "rm -rf #{app_css}; mkdir -p #{app_css}; cp -r #{gem_css}/* #{app_css}/."
+        system "rm -rf #{app_js}; mkdir -p #{app_js}; cp -r #{gem_js}/* #{app_js}/."
       end
 
       initializer "expansions" do
