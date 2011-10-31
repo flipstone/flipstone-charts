@@ -12,15 +12,17 @@ module Flipstone
         flipstone_charts/gem
       )
 
-      initializer "static assets" do |app|
-        app_css = File.join app.root, 'public', 'stylesheets', 'flipstone_charts'
-        app_js = File.join app.root, 'public', 'javascripts', 'flipstone_charts'
+      if Rails::VERSION::STRING < '3.1'
+        initializer "static assets for rails 3.0" do |app|
+          app_css = File.join app.root, 'public', 'stylesheets', 'flipstone_charts'
+          app_js = File.join app.root, 'public', 'javascripts', 'flipstone_charts'
 
-        gem_css = File.join root, 'public', 'stylesheets', 'flipstone_charts'
-        gem_js = File.join root, 'public', 'javascripts', 'flipstone_charts'
+          gem_css = File.join root, 'app', 'assets', 'stylesheets', 'flipstone_charts'
+          gem_js = File.join root, 'app', 'assets', 'javascripts', 'flipstone_charts'
 
-        system "rm -rf #{app_css}; mkdir -p #{app_css}; cp -r #{gem_css}/* #{app_css}/."
-        system "rm -rf #{app_js}; mkdir -p #{app_js}; cp -r #{gem_js}/* #{app_js}/."
+          system "rm -rf #{app_css}; mkdir -p #{app_css}; cp -r #{gem_css}/* #{app_css}/."
+          system "rm -rf #{app_js}; mkdir -p #{app_js}; cp -r #{gem_js}/* #{app_js}/."
+        end
       end
 
       initializer "expansions" do
