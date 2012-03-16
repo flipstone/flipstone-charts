@@ -63,8 +63,18 @@ var flipstoneCharts = {
 
     table.find('tbody tr').each(function(columnIndex) {
       $(this).find('td').each(function(rowIndex) {
-        var formattedValue = $(this).text();
-        var value = parseFloat(formattedValue.replace(/[^-0-9.]/g, ''));
+        var formattedOption = $(this).attr('data-formatted');
+        var formattedValue = null;
+        var value = null;
+
+        if (formattedOption) {
+          formattedValue = formattedOption;
+          value = parseFloat($(this).text());
+        } else {
+          formattedValue = $(this).text();
+          value = parseFloat(formattedValue.replace(/[^-0-9.]/g, ''));
+        }
+
         data.setCell(rowIndex, columnIndex + 1, value, formattedValue);
       });
     });
