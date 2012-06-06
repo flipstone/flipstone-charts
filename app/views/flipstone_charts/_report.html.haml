@@ -1,10 +1,10 @@
-- chart_type ||= 'BarChart'
+- chart_type ||= 'ColumnChart'
 .report{'data-chart-type' => chart_type}
   %table
     %caption= report.title
     %thead
       %tr
-        %td
+        %th
         - report.x_axis_labels.each do |l|
           %th= l
     %tbody
