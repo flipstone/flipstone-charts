@@ -51,6 +51,7 @@ var flipstoneCharts = {
 
     table.find('tbody tr').each(function() {
       data.addColumn('number', $(this).find('th').text());
+      data.addColumn({type: 'boolean', role: 'certainty'})
     });
 
     data.addRows(table.find('thead th').size() - 1);
@@ -75,7 +76,14 @@ var flipstoneCharts = {
           value = parseFloat(formattedValue.replace(/[^-0-9.]/g, ''));
         }
 
-        data.setCell(rowIndex, columnIndex + 1, value, formattedValue);
+        if ($(this).attr('data-certainty')) {
+          var certainty = $(this).data('certainty');
+        } else {
+          var certainty = true;
+        }
+
+        data.setCell(rowIndex, (columnIndex*2) + 1, value, formattedValue);
+        data.setCell(rowIndex, (columnIndex*2) + 2, certainty);
       });
     });
 
