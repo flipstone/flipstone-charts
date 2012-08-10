@@ -114,12 +114,16 @@ var flipstoneCharts = {
           target = target[path[i]];
         }
 
-        var arrayMatch = /^\[([^\]]*)\]$/.exec(this.value)
+        try {
+          var value = $.parseJSON(this.value);
+        } catch(e) {
+          var arrayMatch = /^\[([^\]]*)\]$/.exec(this.value)
 
-        if (arrayMatch) {
-          var value = arrayMatch[1].split(',')
-        } else {
-          var value = this.value;
+          if (arrayMatch) {
+            var value = arrayMatch[1].split(',')
+          } else {
+            var value = this.value;
+          }
         }
 
         target[path.pop()] = value;
