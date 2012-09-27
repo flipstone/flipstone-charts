@@ -24,13 +24,15 @@ var flipstoneCharts = {
     google.load('visualization', '1', {packages: ['corechart']});
   },
 
-  init: function() {
-    $('.report').report();
-    flipstoneCharts.initStandaloneCharts();
+  init: function(locator) {
+    var locator = locator || $;
+    locator('.report').report();
+    flipstoneCharts.initStandaloneCharts(locator);
   },
 
-  initStandaloneCharts: function() {
-    $('.flipstone-chart').each(function() {
+  initStandaloneCharts: function(locator) {
+    var locator = locator || $;
+    locator('.flipstone-chart').each(function() {
       var table = $(this);
       flipstoneCharts.generateChartFor(table, table);
     });
